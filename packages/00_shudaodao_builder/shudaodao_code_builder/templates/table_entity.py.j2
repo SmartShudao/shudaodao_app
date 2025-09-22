@@ -14,7 +14,7 @@
 class {{ class_name }}Base(SQLModel):
     """ 模型共用字段 """
     {% for column in columns -%}
-    {{ column|format_column }}
+    {{- column|format_column }}
     {% endfor %}
 
 
@@ -24,6 +24,11 @@ class {{ class_name }}({{ class_name }}Base, table=True):
     {% if table_args %}
     __table_args__ = {{ table_args }}
     {% endif %}
+
+    {% for column in columns -%}
+    {{ column|format_column_table -}}
+    {% endfor %}
+
 
 
 class {{ class_name }}Create({{ class_name }}Base):

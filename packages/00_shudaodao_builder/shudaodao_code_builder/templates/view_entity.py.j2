@@ -25,6 +25,11 @@ class {{ class_name }}({{ class_name }}Base, table=True):
     __table_args__ = {{ table_args }}
     {% endif %}
 
+    {% for column in columns -%}
+    {{ column|format_column_table -}}
+    {% endfor %}
+
+
 
 class {{ class_name }}Response(BaseResponse):
     """ 前端响应模型 - 用于接口响应 """
