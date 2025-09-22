@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一个本地 Vue 应用</title>
+    <!-- 1. 引入 Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<!-- 2. 定义挂载点 -->
+<!-- Vue 实例将接管这个 div 及其内部内容 -->
+<div id="app">
+    <h1>{{ message }}</h1>
+    <button @click="count++">点了 {{ count }} 次</button>
+</div>
+
+<!-- 3. 引入我们自己的 JS 代码 -->
+<script>
+    // 4. 创建 Vue 应用实例
+    const {createApp} = Vue; // 从全局 Vue 对象中解构出 createApp
+
+    const app = createApp({
+        // 在这里定义组件选项
+        // data() 返回一个对象，包含我们需要的响应式数据
+        data() {
+            return {
+                message: '你好，Vue！',
+                count: 0
+            }
+        }
+        // 还可以在这里定义 methods, computed, mounted 等生命周期钩子
+    });
+
+    // 5. 将应用实例挂载到 #app 元素上
+    app.mount('#app');
+</script>
+</body>
+</html>

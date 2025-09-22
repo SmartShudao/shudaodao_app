@@ -1,0 +1,103 @@
+SmartShudao:
+  # 状态  开发 dev , 生产 prod
+  # logging_level : debug info warning error
+  environment: { model: "dev", logging_level: debug ,show_merge_yaml: true }
+  # 主机、端口、默认页
+  webapp: {
+    name: "数道智融科技Web应用程序", version: "0.1.0",
+    host: "0.0.0.0", port: 8000, page: "pages/index.html",
+    workers: 5, reload: false
+  }
+  # 认证、鉴权
+  auth: {
+    token_jwt_secret_key: "",  # token 的key
+    token_jwt_expire_minutes: 60,
+    rebuild_permission_rule: true, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
+    default_admin_roles: [ "admin" ], # 添加的默认角色
+    default_admin_users: [ "admin","lf_shao" ]
+  }
+  # 路由配置
+  routers:
+    # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
+    - { name: "shudaodao_core", "prefix": "/api" }
+    - { name: "shudaodao_common", "prefix": "/api" }
+    - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
+    - { name: "shudaodao_generate.shudao_acm", "prefix": "/api" , "tags": [ "访问控制系统" ] }
+
+  # 雪花算法
+  # instance_id 实例ID（机器ID），用于区分不同的生成器实例
+  # epoch_time 自定义起始时间戳（毫秒), 默认:2025-01-01（1735689600000）
+  generate_snowflake: { instance_id: 1, epoch_time: 1735689600000 }
+  # 存储
+  storage:
+    # redis 存储
+    redis:
+      # 第一个节点 name:"Default" 不建议修改
+      - { name: "Default", host: "localhost", port: 6379, db: 0 ,kwargs: { } }
+      - { name: "Context", host: "localhost", port: 6379, db: 1 ,kwargs: { } }
+      - { name: "Context_OpenAI", host: "localhost", port: 6379, db: 2 ,kwargs: { } }
+      - { name: "Context_Enabled_False", enabled: false, host: "localhost", port: 6379, db: 3 ,kwargs: { } }
+    # 硬盘存储
+    disk:
+      # 第一个节点 name:"Default" 不建议修改
+      - { name: "Default", path: "storage/default" }
+      # 上传目录
+      - { name: "Upload", path: "web/uploads/" }
+      # 对话上下文
+      - { name: "Context", path: "storage/cache/context" }
+      - { name: "Context_OpenAI", path: "storage/cache/context_openai" }
+      # 向量库
+      - { name: "Vector", path: "storage/vector/" }
+      # 向量库
+      - { name: "Vector_Enabled_False", enabled: false, path: "storage/vector_false/" }
+    # 数据库存储
+    database:
+      - { name: "Common",  enabled: true,
+          dialect: "sqlite", driver: "aiosqlite",
+          url: "database/test.db",
+          connect_args: { "check_same_thread": False },
+          echo: false
+      }
+
+  # 模型
+  models:
+    # 上下文持久化
+    context:
+      # "disabled", "redis", "disk"
+      # 第一个节点 name:"Default" 不建议修改
+      - { name: "Default",  storage: "disabled" }
+      - { name: "AgentChat", storage: "disk", disk: "Context", redis: "Context" }
+      - { name: "AgentChat_Enabled_False", enabled: false, storage: "disk", disk: "Context", redis: "Context" }
+      - { name: "OpenAIChat", storage: "disk", disk: "Context_OpenAI", redis: "Context_OpenAI" }
+    # 生成模型
+    language_models:
+      # 模型基本信息  proxy 代理 local、remote
+      - { name: "Qwen3-0.6B", proxy: "local",
+          enabled: true,
+        # 本地模型配置: 引擎选择、路径、启动参数、生成参数
+          local: {
+            engine: "transformers", path: "models/Qwen/Qwen3-0.6B" ,
+            # 引擎加载的参数
+            engine_options: {
+              # 任意大模型支持的参数
+              device_map: "auto",
+              # torch_dtype: "torch.float16"
+            },
+            # 函数方法执行的参数
+            method_kwargs: {
+              # 任意大模型支持的参数
+              temperature: 1
+            }
+          },
+        # 远程模型配置
+          remote: { model: "", url: "https://ip:port/api/...", key: "api-key", method_kwargs: { } }
+      }
+    # 嵌入模型
+    embedding_models: [ ]
+    # 重排序模型
+    reranker_models: [ ]
+
+
+
+
+

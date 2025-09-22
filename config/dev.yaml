@@ -1,0 +1,86 @@
+SmartShudao:
+  # 主机、端口、默认页
+  webapp: { page: "pages/demo/index.html", reload: true }
+  # 存储
+  storage:
+    # 数据库存储
+    database: [
+      # 安全相关 请在 secrets/dev.yaml 中配置
+    ]
+  auth: {
+    token_jwt_expire_minutes: 180,
+  }
+  routers:
+    # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
+    - { name: "shudaodao_core", "prefix": "" }
+    - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
+    - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
+    - { name: "shudaodao_generate.shudao_admin", "prefix": "/api" }
+  # 模型
+  models:
+    # 生成模型
+    language_models:
+      # 模型基本信息  proxy 代理 local、remote
+      - name: "Qwen3-0.6B"
+        proxy: "local"
+        field_think: "enable_thinking"
+        local:
+          engine: "transformers"
+          engine_options: { device_map: "auto" }
+          path: "models/Qwen/Qwen3-0.6B"
+          method_kwargs: { temperature: 0.5 }
+
+      - name: "Qwen3-4B"
+        enabled: false
+        proxy: "local"
+        field_think: "enable_thinking"
+        local:
+          path: "models/Qwen/Qwen3-4B"
+
+      - name: "「错误地址」Qwen3-8B[测试]"
+        proxy: "remote"
+        remote:
+          model: "Qwen/Qwen3-8B"
+          url: "https://api.aaaaaaaaaaa.cn/v1/chat/completions"
+          key: "sk-qaifmgfimyjjnonmdkclwzkvmyunbomvvccstuojrdkkuecw"
+          kwargs: { }
+
+      - name: "「硅基流动」Qwen3-8B"
+        proxy: "remote"
+        field_think: "enable_thinking"
+        remote:
+          model: "Qwen/Qwen3-8B"
+          url: "https://api.siliconflow.cn/v1/chat/completions"
+          key: "sk-qaifmgfimyjjnonmdkclwzkvmyunbomvvccstuojrdkkuecw"
+          kwargs: { }
+
+      - { name: "「硅基流动」DeepSeek-8B", proxy: "remote",
+          enabled: false,
+          field_think: "enable_thinking",
+          remote: {
+            model: "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+            url: "https://api.siliconflow.cn/v1/chat/completions",
+            key: "sk-qsxnvvcqyfciabnngrylwcwsehpzkzfresgwvvbeedvdsqkd",
+            kwargs: { }
+          } }
+
+      - { name: "「模拟远程」Qwen3-0.6B", proxy: "remote",
+          field_think: "enable_thinking",
+          remote: {
+            model: "Qwen3-0.6B",
+            url: "http://0.0.0.0:8000/api/v1/chat/completions",
+            key: "sk-qsxnvvcqyfciabnngrylwcwsehpzkzfresgwvvbeedvdsqkd",
+            kwargs: { }
+          } }
+
+      # 嵌入模型
+    embedding_models:
+      - name: "Qwen3-Embedding-0.6B"
+        local:
+          engine: "sentence_transformers"
+          path: "models/Qwen/Qwen3-Embedding-0.6B"
+    # 重排序模型
+    reranker_models: [ ]
+
+
+

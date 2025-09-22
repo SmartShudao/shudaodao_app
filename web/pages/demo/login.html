@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form {
+            display: block;
+        }
+
+        .form h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .input-group .error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .btn-submit:hover {
+            background: #2980b9;
+        }
+
+        .btn-submit:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .switch-form a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .response-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 4px;
+            display: none;
+            word-wrap: break-word;
+        }
+
+        .response-message .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .response-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+
+    </style>
+    <script src="/scripts/components/base/cookie_manager.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <!-- 登录表单 -->
+        <form class="form">
+            <h2>欢迎回来</h2>
+            <div class="input-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" placeholder="请输入您的用户名" required>
+                <div class="error">请输入有效的用户名</div>
+            </div>
+            <div class="input-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" placeholder="请输入您的密码" required>
+                <div class="error">密码不能为空</div>
+            </div>
+            <div class="forgot-password">
+                <a href="#" id="forgot-password">忘记密码?</a>
+            </div>
+            <button type="submit" class="btn-submit" id="login-submit">
+                <span class="btn-text">登录</span>
+            </button>
+            <div class="response-message"></div>
+            <div class="switch-form">
+                还没有账号？<a href="register.html">立即注册</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('username').value = CookieManager.get("user_name");
+        // 切换表单
+        const submitBtn = document.getElementById('login-submit');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const responseMsg = document.querySelector(".response-message");
+
+
+        submitBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            let isValid = true;
+            // 登录表单验证
+            const password = document.getElementById('password');
+            const passwordError = password.nextElementSibling;
+            // 密码验证
+            if (password.value.trim() === '') {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+            if (isValid) {
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                const user_name_value = document.getElementById('username').value;
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("username", user_name_value);
+                urlencoded.append("password", document.getElementById('password').value);
+
+                const requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: 'follow'
+                };
+
+                // 禁用提交按钮并显示加载状态
+                submitBtn.disabled = true;
+                btnText.innerHTML = '<span class="spinner"></span>处理中...';
+                await fetch("/auth/token", requestOptions)
+                    .then(response => response.json())
+                    /**
+                     *
+                     * @param {object} [result]
+                     * @param {object} [result.data]
+                     * @param {string} [result.data.token]
+                     */
+                    .then(result => {
+                        CookieManager.set("user_name", user_name_value);
+                        const token_value = result.data.token
+                        CookieManager.set("token", token_value, null);
+                        responseMsg.textContent = `登录成功!\n\n${token_value}`;
+                        responseMsg.className = 'response-message success';
+                        window.location.href = "index.html"
+                    })
+                    .catch(error => {
+                        // 显示错误消息
+                        responseMsg.textContent = `提交失败: ${error.message}`;
+                        responseMsg.className = 'response-message error';
+                    })
+                    .finally(() => {
+                        // 恢复提交按钮
+                        submitBtn.disabled = false;
+                        btnText.innerHTML = '登录';
+                    })
+            }
+        });
+
+        // 实时验证
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const error = input.nextElementSibling;
+                if (error && error.classList.contains('error')) {
+                    error.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

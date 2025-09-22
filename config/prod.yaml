@@ -1,0 +1,32 @@
+SmartShudao:
+  # 主机、端口、默认页
+  webapp: { workers: 5, reload: false }
+  storage:
+    # 数据库存储
+    database: [
+      # 安全相关 请在 secrets/prod.yaml 中配置
+    ]
+  # 模型
+  models:
+    # 生成模型
+    language_models:
+      # 模型基本信息  proxy 代理 local、remote
+      - name: "Qwen3-4B"
+        proxy: "local"
+        field_think: "enable_thinking"
+        local:
+          engine: "transformers"
+          engine_options: { device_map: "auto" }
+          path: "models/Qwen/Qwen3-4B"
+          method_kwargs: { }
+
+      # 嵌入模型
+    embedding_models:
+      - name: "Qwen3-Embedding-8B"
+        local:
+          engine: "sentence_transformers"
+          path: "models/Qwen/Qwen3-Embedding-8B"
+
+    # 重排序模型
+    reranker_models: [ ]
+

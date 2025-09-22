@@ -1,0 +1,184 @@
+
+.markdown-container {
+    /*max-width: 800px;*/
+    /*margin: 0 auto;*/
+    /*padding: 2rem;*/
+}
+
+.markdown-container h1,
+.markdown-container h2,
+.markdown-container h3,
+.markdown-container h4,
+.markdown-container h5,
+.markdown-container h6 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.markdown-container h1 {
+    font-size: 2em;
+    /*border-bottom: 1px solid #e1e4e8;*/
+    /*padding-bottom: 0.3em;*/
+}
+
+.markdown-container h2 {
+    font-size: 1.5em;
+    /*border-bottom: 1px solid #e1e4e8;*/
+    /*padding-bottom: 0.3em;*/
+}
+
+.markdown-container h3 {
+    font-size: 1.25em;
+}
+
+.markdown-container p {
+    /*margin-top: 0;*/
+    /*margin-bottom: 1em;*/
+}
+
+.markdown-container a {
+    color: #0969da;
+    text-decoration: none;
+}
+
+.markdown-container a:hover {
+    text-decoration: underline;
+}
+
+.markdown-container img {
+    max-width: 100%;
+    box-sizing: initial;
+    background-color: #0d1117;
+}
+
+.markdown-container code {
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+}
+
+.markdown-container pre {
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    margin-bottom: 1.5em;
+}
+
+.markdown-container pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 100%;
+}
+
+.markdown-container blockquote {
+    padding: 0 1em;
+    color:#57606a;
+    border-left: 0.25em solid #d0d7de;
+    margin: 0 0 1em 0;
+}
+
+.markdown-container ul,
+.markdown-container ol {
+    /*margin-bottom: 1em;*/
+    padding-left: 1em;
+    margin: 0;
+    /*padding: 0;*/
+}
+
+.markdown-container li {
+    margin: 0.2em 0 0.3em 0;
+}
+
+.markdown-container li > p {
+    margin-bottom: 0.5em;
+}
+
+.markdown-container table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 1.5em;
+}
+
+.markdown-container table th {
+    font-weight: 600;
+}
+
+.markdown-container table th,
+.markdown-container table td {
+    padding: 6px 13px;
+    border: 1px solid #e1e4e8;
+}
+
+.markdown-container table tr {
+    /*background-color: #0d1117;*/
+    border-top: 1px solid #e1e4e8;
+}
+
+.markdown-container table tr:nth-child(2n) {
+    background-color:  #f6f8fa;
+}
+
+.markdown-container hr {
+    border: 0;
+    height: 0;
+    padding: 0;
+    /*margin: 0;*/
+    background-color: #e1e4e8;
+    /*border-radius: 0.1em;*/
+}
+
+/* 任务列表样式 */
+.markdown-container .contains-task-list {
+    position: relative;
+    padding-left: 0;
+    list-style: none;
+}
+
+.markdown-container .task-list-item {
+    padding-left: 2em;
+}
+
+.markdown-container .task-list-item-checkbox {
+    margin: 0 0.2em 0.25em -1.6em;
+    vertical-align: middle;
+}
+
+
+/* 针对markdown中的ul,ol 正文
+/*.markdown-container > :not(ol):not(ul):not(pre):last-child:after,*/
+/*.markdown-container > pre:last-child code:after,*/
+/*.markdown-container > :is(ul,ol):last-child > li:last-child p:last-child:after,*/
+/*.markdown-container > :is(ul,ol):last-child > li:last-child:not(:has(>p)):not(:has(*>li)):after,*/
+/*.markdown-container > :is(ul,ol):last-child > li:last-child>:is(ul,ol):last-child>li:last-child:not(:has(>p)):not(:has(*>li)):after,*/
+/*.markdown-container > :is(ul,ol):last-child > li:last-child>:is(ul,ol):last-child>li:last-child>:is(ul,ol):last-child > li:last-child:not(:has(>p)):after {*/
+/*    display: inline-block;*/
+/*    content: "";*/
+/*    margin: 0 .2em;*/
+/*    width: 14px;*/
+/*    height: 14px;*/
+/*    border-radius: 100%;*/
+/*    background-color: black;*/
+/*    vertical-align: text-bottom;*/
+/*    transform: translate3d(0, -2px, 0);*/
+/*    !*animation: blink .7s infinite;*!*/
+/*}*/
+
+/*@keyframes blink {*/
+/*	0%,*/
+/*	100% {*/
+/*		opacity: 1;*/
+/*	}*/
+/*	50% {*/
+/*		opacity: 0;*/
+/*	}*/
+/*}*/

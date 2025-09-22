@@ -1,0 +1,177 @@
+/* -*- coding:utf-8 -*-
+ @License  ：(C)Copyright 2025, 数道智融科技
+ @Author   ：李锋
+ @Software ：PyCharm
+ @Date     ：2025/7/29
+ @Desc     ：
+*/
+
+/* 表单标签样式 */
+.shudao-ai label {
+    display: block; /* 块级显示 */
+    color: var(--shudao-ai-color-label); /* 标签颜色 */
+    font-size: 0.95rem; /* 字体大小 */
+    font-weight: 500; /* 字体粗细 */
+    margin-bottom: 0.25rem; /* 下外边距 */
+}
+
+
+/* 通用输入控件样式 */
+.shudao-ai input,
+.shudao-ai textarea,
+.shudao-ai select {
+    width: 100%; /* 宽度100% */
+    padding: 0.75rem; /* 内边距 */
+    font-size: 1rem; /* 字体大小 */
+    font-weight: 500; /* 字体粗细 */
+    color: var(--shudao-ai-color-input); /* 文字颜色 */
+    border: 1px solid var(--shudao-ai-border-color); /* 边框 */
+    border-radius: var(--shudao-ai-border-radius-5); /* 圆角 */
+    background-color: white; /* 背景颜色 */
+}
+
+/* 通用输入控件样式 禁用状态 */
+.shudao-ai input:disabled,
+.shudao-ai textarea:disabled,
+.shudao-ai select:disabled {
+    background-color: var(--shudao-ai-color-disabled); /* 背景颜色 */
+    color: var(--shudao-ai-footer-color); /* 文字颜色 */
+    opacity: 0.7; /* 不透明度 */
+    box-shadow: none; /* 重置阴影效果 */
+    transform: none; /* 重置变换效果 */
+}
+
+/* 范围滑块样式 */
+.shudao-ai input[type="range"] {
+    height: 2px; /* 高度 */
+    background: var(--shudao-ai-border-hover); /* 背景颜色 */
+    border-radius: 3px; /* 圆角 */
+    cursor: pointer; /* 鼠标指针样式 */
+    padding: 0.75em 0;
+}
+
+.shudao-ai input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* 移除默认外观 */
+    width: 18px; /* 宽度 */
+    height: 18px; /* 高度 */
+    background: var(--shudao-ai-primary-color); /* 背景颜色 */
+    border-radius: 50%; /* 圆形 */
+    cursor: pointer; /* 鼠标指针样式 */
+}
+
+/* 文本域特定样式 */
+.shudao-ai textarea {
+    resize: vertical; /* 允许垂直调整大小 */
+    vertical-align: top; /* 对齐，避免底部空白 */
+}
+
+/* 下拉选择框样式 */
+.shudao-ai select {
+    appearance: none; /* 移除默认外观 */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); /* 自定义箭头图标 */
+    background-repeat: no-repeat; /* 图标不重复 */
+    background-position: right 0.5rem center; /* 图标位置 */
+    background-size: 1rem; /* 图标大小 */
+    padding-right: 2rem; /* 右内边距 */
+}
+
+.shudao-ai label:has(input[type="range"]) {
+    line-height: 1rem; /* 行高 */
+}
+
+/* 滑块值显示 */
+.shudao-ai label .slider-value {
+    padding: 0 var(--shudao-ai-gap-5);
+}
+
+
+/* 滑块描述文字 */
+.shudao-ai label .slider-description {
+    color: var(--shudao-ai-color-desc); /* 文字颜色 */
+    font-size: 0.85rem; /* 字体大小 */
+    text-align: center; /* 文本居中 */
+    width: 100%; /* 宽度100% */
+    display: inline-block; /* 行内块元素 */
+}
+
+/* 输入控件交互状态 */
+.shudao-ai input:not([type="range"]):not(:disabled):hover,
+.shudao-ai textarea:not(:disabled):hover,
+.shudao-ai select:not(:disabled):hover,
+.shudao-ai input:not([type="range"]):focus,
+.shudao-ai textarea:focus,
+.shudao-ai select:focus {
+    outline: none; /* 无轮廓 */
+    border-color: var(--shudao-ai-border-hover); /* 边框颜色 */
+    box-shadow: var(--shudao-ai-shadow-primary); /* 阴影效果 */
+}
+
+/* 按钮基础样式 */
+.shudao-ai button {
+    min-height: 2.5rem;
+    padding: 0 1.5rem; /* 内边距 */
+    border: 1px solid #e2e8f0; /* 无边框 */
+    border-radius: var(--shudao-ai-border-radius-5); /* 圆角 */
+    font-size: 1rem; /* 字体大小 */
+    font-weight: 600; /* 字体粗细 */
+    cursor: pointer; /* 鼠标指针样式 */
+    transition: var(--shudao-ai-transition); /* 过渡效果 */
+    flex: 1; /* 占据剩余空间 */
+    background-color: var(--shudao-ai-button-face); /* 背景色 */
+    color: var(--shudao-ai-color-button);
+    white-space: nowrap; /* 不换行*/
+    vertical-align: middle;
+}
+
+/* 按钮 悬停状态 - 排除禁用 */
+/* 按钮 焦点状态  */
+.shudao-ai button:not(:disabled):hover {
+    background-color: var(--shudao-ai-button-hover); /* 背景颜色 */
+}
+
+/* 提交按钮样式 */
+.shudao-ai button.submit {
+    background-color: var(--shudao-ai-primary-color); /* 背景颜色 */
+    color: white; /* 文字颜色 */
+}
+
+/* 提交按钮 悬停状态 - 排除禁用 */
+.shudao-ai button.submit:not(:disabled):hover {
+    background-color: var(--shudao-ai-primary-hover); /* 悬停背景颜色 */
+    box-shadow: var(--shudao-ai-shadow-primary); /* 阴影效果 */
+}
+
+/* 删除按钮样式 */
+.shudao-ai button.delete {
+    background-color: var(--shudao-ai-error-color); /* 背景颜色 */
+    color: white; /* 文字颜色 */
+}
+
+/* 删除按钮 悬停状态 - 排除禁用 */
+.shudao-ai button.delete:not(:disabled):hover {
+    background-color: var(--shudao-ai-error-hover); /* 悬停背景颜色 */
+}
+
+
+/* 取消按钮样式 */
+.shudao-ai button.cancel {
+    background-color: var(--shudao-ai-error-color); /* 背景颜色 */
+    color: white; /* 文字颜色 */
+}
+
+
+/* 取消按钮 悬停状态 - 排除禁用 */
+.shudao-ai button.cancel:not(:disabled):hover {
+    background-color: var(--shudao-ai-error-hover); /* 悬停背景颜色 */
+}
+
+
+/* 按钮 禁用状态  */
+.shudao-ai button:disabled {
+    background-color: var(--shudao-ai-border-color); /* 背景颜色 */
+    color: var(--shudao-ai-light-color); /* 文字颜色 */
+    opacity: 0.7; /* 不透明度 */
+    box-shadow: none; /* 重置阴影效果 */
+    transform: none; /* 重置变换效果 */
+}
+

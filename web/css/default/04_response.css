@@ -1,0 +1,161 @@
+/* AI API 输出的容器样式 */
+.shudao-ai .container-response,
+.shudao-ai .container-response-chunk {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
+/* AI API chunk的容器样式*/
+.shudao-ai .container-response-chunk {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+
+/* AI API 输出内容 */
+.shudao-ai .container-response .content {
+    font-size: 1rem;
+    line-height: 1.8rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+}
+
+/* AI API 思考内容 */
+.shudao-ai .container-response .reasoning {
+    color: var(--shudao-ai-footer-color);
+    padding: 0 1rem 1rem 1rem;
+    border-left: 2px solid var(--shudao-ai-border-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* AI API 思考按钮 */
+.shudao-ai .container-response .button {
+    padding: 0.35rem 0.5rem;
+    gap: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid var(--shudao-ai-border-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--shudao-ai-border-radius-5);
+    color: var(--shudao-ai-footer-color);
+    background-color: var(--shudao-ai-border-color);
+    border-bottom-left-radius: 0;
+}
+
+.shudao-ai .container-response .button > svg:nth-last-child(2) {
+    display: none;
+}
+
+.shudao-ai .container-response .button > svg:last-child {
+    display: unset;
+}
+
+.shudao-ai .container-response .button-collapse {
+    border-bottom-left-radius: var(--shudao-ai-border-radius-5);
+}
+
+.shudao-ai .container-response .button-collapse > svg:nth-last-child(2) {
+    display: unset;
+}
+
+.shudao-ai .container-response .button-collapse > svg:last-child {
+    display: none;
+}
+
+/* 按钮 悬停状态 - 排除禁用 */
+.shudao-ai .container-response .button:not(:disabled):hover {
+    box-shadow: none;
+    background-color: var(--shudao-ai-button-face);
+}
+
+.shudao-ai .container-response .question {
+    line-height: 1.3rem;
+    display: flex;
+    padding-bottom: 1rem;
+    flex-direction: row-reverse;
+}
+
+.shudao-ai .container-response .question span {
+    max-width: 80%;
+    padding: 0.5rem 1rem;
+    background-color: var(--shudao-ai-primary-color);
+    border-radius: var(--shudao-ai-border-radius-5);
+    color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+
+.shudao-ai .container-response .loading {
+    color: var(--shudao-ai-footer-color);
+}
+
+.shudao-ai .container-response .error-object {
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+}
+
+.shudao-ai .container-response .error-object > .title {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-weight: bold;
+    color: var(--shudao-ai-error-color);
+    background-color: var(--shudao-ai-info-color);
+    padding: 0.25rem 1rem 0 1rem;
+}
+
+.shudao-ai .container-response .error-object > .content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    display: block;
+    background-color: var(--shudao-ai-info-color);
+    padding: 0 1rem 1rem 1rem;
+}
+
+.shudao-ai .container-response .error {
+    max-width: 90%;
+    padding-bottom: 1rem;
+}
+
+.shudao-ai .container-response .error > span {
+    display: inline-block;
+    font-weight: bold;
+    border-radius: var(--shudao-ai-border-radius-5);
+    color: white;
+    background-color: var(--shudao-ai-error-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.shudao-ai .container-response .info {
+    max-width: 90%;
+    padding-bottom: 1rem;
+}
+
+.shudao-ai .container-response .info span {
+    display: inline-block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--shudao-ai-border-radius-5);
+    background-color: var(--shudao-ai-info-color);
+    /* color: var(--shudao-ai-color-desc); */
+}

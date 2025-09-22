@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数道智融_业务咨询智能体</title>
+    <link rel="stylesheet" href="../../css/delete/chatbot.css">
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/markdown.css">
+</head>
+<body>
+<!--主容器-->
+<div class="chat-container" id="chat_Container">
+    <!--菜单栏-->
+    <div class="menubar">
+    </div>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <button class="chat-new-btn"><i class="fas fa-plus"></i>新对话</button>
+            <button class="chat-modify-btn"><i class="fas fa-pen"></i>修改</button>
+            <button class="chat-delete-btn"><i class="fas fa-xmark"></i>删除</button>
+        </div>
+        <div class="chat-history"></div>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <div class="chat-username">数道智融科技</div>
+            </div>
+        </div>
+    </div>
+    <!-- 主聊天区域 -->
+    <div class="chat-main">
+        <div class="chat-header">
+            <button class="chat-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="chat-title">&nbsp;</div>
+            <div>
+
+            </div> <!-- 占位用 -->
+        </div>
+        <div class="chat-messages">
+            <div class="message">
+                <div class="message-content">
+                    <div class="message-role">
+                        <div class="message-avatar assistant-avatar">AI</div>
+                    </div>
+                    <div class="message-text assistant-message">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat_toolbar">
+            <div class="toolbar">
+                <div class="select-wrapper">
+                    <select id="models_list" class="select_list">
+                        <option value="1">qwen3</option>
+                        <option value="1">DeepSeek</option>
+                    </select>
+                </div>
+                <div>
+                    <input id="enable_thinking" checked="checked" type="checkbox">
+                    <label for="enable_thinking">深度思考</label>
+                </div>
+                <div class="select-wrapper">
+                    <select id="assistant_type" class="select_list">
+                        <option value="1">直接对话</option>
+                        <option value="2">有提示词</option>
+                        <option value="3">嵌入模型</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <div class="input-box">
+                <textarea class="input-textarea" name="input" rows="1" placeholder="请在这里输入问题"></textarea>
+                <button class="chat-send-btn" name="send" disabled><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../scripts/markdown.js"></script>
+<script src="../../scripts/delete/utils.js"></script>
+<script src="../../scripts/delete/chatbot.js"></script>
+<script language="JavaScript">
+    // 配置 marked (MarkDown格式处理）
+    marked.setOptions({
+        highlight: function (code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, {language}).value;
+        },
+        langPrefix: 'hljs language-',
+        breaks: true,
+        gfm: true,
+        pedantic: false,
+        sanitize: false,
+        smartypants: false,
+        xhtml: false
+    });
+</script>
+</body>
+</html>

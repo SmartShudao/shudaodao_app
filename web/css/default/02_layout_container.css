@@ -1,0 +1,92 @@
+/* -*- coding:utf-8 -*-
+ @License  ：(C)Copyright 2025, 数道智融科技
+ @Author   ：李锋
+ @Software ：PyCharm
+ @Date     ：2025/7/29
+ @Desc     ：
+*/
+
+/* 布局: 满屏 */
+.shudao-ai .container-full {
+    height: 100vh; /* 视口高度100% */
+    width: 100vw; /* 视口宽度100% */
+}
+
+.shudao-ai .container-full-height {
+    height: 100vh; /* 视口高度100% */
+}
+
+.shudao-ai .container-full-width {
+    width: 100vw; /* 视口宽度100% */
+}
+
+/* 布局：固定页眉页脚+自适应内容 */
+.shudao-ai .container-hmf {
+    display: grid; /* 使用网格布局 */
+    grid-template-rows: auto 1fr auto; /* 自动页眉页脚、自适应内容 */
+    min-height: 100vh; /* 最小高度为视口高度100% */
+    gap: var(--shudao-ai-gap-15); /* 容器间距 */
+    background-color: var(--shudao-ai-background-color); /* 背景颜色 */
+}
+
+.shudao-ai .container-hmf > div.hmf-header {
+    text-align: center; /* 文本居中 */
+    padding: 1em 0; /* 上下内边距1em */
+}
+
+.shudao-ai .container-hmf > div.hmf-middle {
+    overflow: auto; /* 自动滚动 */
+    height: 100%; /* 高度100% */
+}
+
+.shudao-ai .container-hmf > div.hmf-footer {
+    padding: 5px; /* 内边距5px */
+    text-align: center; /* 文本居中 */
+    background-color: var(--shudao-ai-foreground-color); /* 前景色 */
+    color: var(--shudao-ai-footer-color); /* 底部文字颜色 */
+}
+
+/* 布局 左中右 */
+.shudao-ai .container-lcr {
+    display: grid; /* 使用网格布局 */
+    grid-template-columns: auto 1fr auto; /* 自动左右侧 自适应中间内容*/
+    background-color: var(--shudao-ai-background-color); /* 背景颜色 */
+    gap: var(--shudao-ai-gap-15); /* 容器间距 */
+}
+
+.shudao-ai .container-lcr > div.lcr-left,
+.shudao-ai .container-lcr > div.lcr-right {
+    display: flex; /* 使用弹性盒子 */
+    overflow: auto; /* 自动滚动 */
+    background-color: var(--shudao-ai-foreground-color); /* 前景色 */
+}
+
+.shudao-ai .container-lcr > div.lcr-center {
+    display: flex; /* 使用弹性盒子 */
+    overflow: auto; /* 自动滚动 */
+    height: 100%; /* 高度100% */
+    width: 100%; /* 宽度100% */
+}
+
+/* 修正 上中下 嵌套 左中右 */
+.shudao-ai .container-hmf .container-lcr,
+.shudao-ai .container-hmf .container-lcr .lcr-left,
+.shudao-ai .container-hmf .container-lcr .lcr-center,
+.shudao-ai .container-hmf .container-lcr .lcr-right {
+    background-color: transparent; /* 背景透明 */
+}
+
+.shudao-ai .container-hmf .container-lcr .lcr-left {
+    padding-left: var(--shudao-ai-gap-15); /* 左侧内边距 */
+}
+
+.shudao-ai .container-hmf .container-lcr .lcr-right {
+    padding-right: var(--shudao-ai-gap-15); /* 右侧内边距 */
+}
+
+
+
+
+
+
+

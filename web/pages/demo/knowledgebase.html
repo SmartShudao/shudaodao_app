@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="shudao-ai">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartShudao「文本向量」范例</title>
+    <link rel="stylesheet" href="/css/default.css">
+    <!--    <script src="/scripts/default.js"></script>-->
+    <script src="/scripts/markdown.js"></script>
+    <script src="/scripts/components/base/slider_manager.js"></script>
+    <script src="/scripts/components/base/scroll_manager.js"></script>
+    <script src="/scripts/components/base/request_manager.js"></script>
+    <script src="/scripts/components/base/upload_manager.js"></script>
+    <script src="/scripts/components/shudao_agent.js"></script>
+    <script src="/scripts/components/base/cookie_manager.js"></script>
+    <style>
+        .shudao-ai .container-hmf {
+            gap: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-hmf container-full">
+    <div class="hmf-header">
+        <h1>SmartShudao「文本向量」范例</h1>
+    </div>
+    <div class="hmf-middle">
+        <div class="flex-gap full padding-gap-10">
+            <!-- 配置面板 1 -->
+            <div class="panel flex-1 panel-scroll">
+                <h3 class="title">上传文档</h3>
+                <div id="fileUploader" class="group panel-upload"></div>
+                <h3 class="title">文档清单</h3>
+                <div id="fileList" class="group scroll"></div>
+                <div class="footer"></div>
+            </div>
+            <!-- 配置面板 2 -->
+            <div class="panel flex-1 panel-scroll">
+                <h3 class="title">生成向量</h3>
+                <div class="group">
+                    <label>嵌入模型
+                        <select id="embedding_models_list">
+                            <option>正在加载...</option>
+                        </select>
+                    </label>
+                    <label>文本模型
+                        <select id="language_models_list">
+                            <option>正在加载...</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="group flex">
+                    <label>分块大小
+                        <input id="chunkSize" type="number" value="500">
+                    </label>
+                    <label>重叠大小
+                        <input id="overlapSize" type="number" value="125">
+                    </label>
+                </div>
+                <div class="group right">
+                    <button id="vectorizeButton" class="submit">生成向量并存储</button>
+                </div>
+                <h3 class="title">对话设置</h3>
+                <div class="group">
+                    <label>最大token数(默认200)
+                        <input id="maxTokens" placeholder="最大-输入=输出(含思考)" value="10240" required>
+                    </label>
+                    <div class="flex">
+                        <label><input type="checkbox" id="contentCheckbox" checked>多轮对话</label>
+                        <label><input type="checkbox" id="streamCheckbox" checked>流式响应</label>
+                        <label><input type="checkbox" id="enableThinkingCheckbox" checked>深度思考</label>
+                    </div>
+                    <div>
+                        <label>多轮对话上下文ID
+                            <input id="subjectID" placeholder="多轮对话上下文标识码" disabled="disabled">
+                        </label>
+                    </div>
+                </div>
+                <div class="group slider flex">
+                    <label>相似度阈值
+                        <span id="thresholdValue" class="slider-value"></span>
+                        <input id="threshold" type="range" min="1" max="10" value="7">
+                    </label>
+                    <label>相似分块数
+                        <span id="chunkCountValue" class="slider-value"></span>
+                        <input id="chunkCount" type="range" min="1" max="10" value="7">
+                    </label>
+                </div>
+            </div>
+            <!-- 输出面板 -->
+            <div class="panel flex-2 full">
+                <h3 class="title">知识问答</h3>
+                <div class="no-padding full panel-scroll markdown-container">
+                    <div id="responseElement" class="scroll full container-response">
+                    </div>
+                </div>
+                <div class="group">
+                    <label>您的问题
+                        <textarea id="userPrompt" placeholder="输入您的问题..."
+                                  rows="4">能办什么业务？</textarea>
+                    </label>
+                </div>
+                <div class="group flex">
+                    <button id="askButton" class="submit">提问</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="hmf-footer">
+        <h5>&copy; 2025 数道智融科技 保留所有权利 | Powered by Shudao AI</h5>
+    </div>
+</div>
+<script>
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        // DOM元素
+        const elements = {
+            // Panel - 1
+            uploadElement: document.getElementById("fileUploader"),
+            listElement: document.getElementById("fileList"),
+            // panel - 2
+            language_models_list: document.getElementById('language_models_list'),
+            embedding_models_list: document.getElementById('embedding_models_list'),
+            chunkSize: document.getElementById("chunkSize"),
+            overlapSize: document.getElementById("overlapSize"),
+            vectorizeBtn: document.getElementById("vectorizeButton"),
+
+            // panel - 3
+            questionInput: document.getElementById('userPrompt'),
+            threshold: document.getElementById('threshold'),
+            thresholdValue: document.getElementById('thresholdValue'),
+            chunkCount: document.getElementById('chunkCount'),
+            chunkCountValue: document.getElementById('chunkCountValue'),
+            askBtn: document.getElementById('askButton'),
+            responseElement: document.getElementById('responseElement'),
+        }
+        // 初始化 SmartShudao 组件
+        const shudaoAIComponent = new ShudaoAIComponent({
+            responseElement: elements.responseElement,
+            onProgress: null, // onProgress,
+            onParseMarkdown: onParseMarkdown
+        });
+        // 初始化 模型列表
+        shudaoAIComponent.load_models(elements.language_models_list,
+            elements.embedding_models_list);
+        // 滑块组
+        const sliders = SliderManager.initSliders([{
+            name: "threshold",
+            slider: elements.threshold,
+            valueDisplay: elements.thresholdValue,
+        }, {
+            name: "chunkCount",
+            slider: elements.chunkCount,
+            valueDisplay: elements.chunkCountValue,
+            divisor: 1,  decimalPlaces: 0
+        }]);
+
+        // 初始化上传组件
+        const fileUploader = new UploadManager("SmartShudao", {
+            uploadElement: elements.uploadElement,// 上传容器
+            listElement: elements.listElement,// 列表容器
+            onLogging: onLogging,       // 日志输出
+            multiple: true,//多文件
+            maxFiles: 1000,//一次最多
+            allowDeletion: true,  // 允许删除
+            accept: [".txt", ".pdf", ".docx", ".md"],    //允许格式
+            headers: {},
+        })
+
+        // 处理MackDown格式
+        function onParseMarkdown(text) {
+            // scripts/markdown.js 的处理mackdown的方法
+            return marked.parse(text)
+        }
+
+        function onLogging(msg, newLine) {
+            try {
+                const jsonObject = JSON.stringify(msg, null, 2)
+                shudaoAIComponent.showMessage(jsonObject, newLine)
+            } catch (error) {
+                shudaoAIComponent.showMessage(msg, newLine)
+            }
+        }
+
+        function bindUploadEvents() {
+            elements.vectorizeBtn.addEventListener("click", vectorizeRequest);
+            elements.askBtn.addEventListener("click", askQuestionRequest)
+        }
+
+        function askQuestionRequest() {
+            elements.askBtn.disabled = true;
+            elements.responseElement.innerHTML = ""
+            const requestData = {
+                collection: "SmartShudao",
+                question: elements.questionInput.value.trim(),
+                threshold: sliders['threshold'].value,
+                chunkCount: sliders['chunkCount'].value
+            }
+            fetch("/api/v1/vectorize/ask", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(requestData)
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return {}
+                }
+            }).then(data => {
+                console.log(data)
+                //响应的内容
+                if (data.status === "success") {
+                    elements.responseElement.innerHTML = marked.parse(data.results);
+                }
+                elements.askBtn.disabled = false;
+
+            }).catch(function (err) {
+                console.log(err);
+                elements.askBtn.disabled = false;
+            })
+        }
+
+        function vectorizeRequest() {
+            elements.vectorizeBtn.disabled = true;
+            const requestData = {
+                collection: "SmartShudao",
+                chunkSize: elements.chunkSize.value,
+                overlapSize: elements.overlapSize.value,
+                files: fileUploader.get_files()
+            }
+            fetch("/api/v1/vectorize/" + requestData.collection, {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(requestData)
+            }).then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return {}
+                }
+            }).then(data => {
+                //响应的内容
+                if (data.status === "success") {
+                    this.showStatus(data.message);
+                }
+                elements.vectorizeBtn.disabled = false;
+
+            }).catch(function (err) {
+                console.log(err);
+                elements.vectorizeBtn.disabled = false;
+            })
+        }
+
+        bindUploadEvents();
+    });
+</script>
+
+</body>
+</html>

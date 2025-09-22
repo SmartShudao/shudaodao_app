@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="shudao-ai">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShuDaodao「generate接口」范例</title>
+    <link rel="stylesheet" href="/css/default.css">
+    <script src="/scripts/markdown.js"></script>
+    <script src="/scripts/components/base/slider_manager.js"></script>
+    <script src="/scripts/components/base/scroll_manager.js"></script>
+    <script src="/scripts/components/base/request_manager.js"></script>
+    <script src="/scripts/components/shudao_agent.js"></script>
+    <script src="/scripts/components/base/cookie_manager.js"></script>
+</head>
+<body>
+<div class="container-hmf container-full">
+    <div class="hmf-header">
+        <h2>Shudao AI「generate接口」范例</h2>
+    </div>
+    <div class="hmf-middle container-lcr columns-121">
+        <div class="lcr-left">
+            <!-- 左侧输入面板 -->
+            <div class="panel panel-scroll">
+                <h3 class="title">模型设置</h3>
+                <div class="group scroll">
+                    <label>对话模型
+                        <select id="models_list">
+                            <option>正在加载...</option>
+                        </select>
+                    </label>
+                    <div class="flex">
+                        <label><input type="checkbox" id="contentCheckbox" checked>多轮对话</label>
+                    </div>
+                    <label>多轮对话上下文ID
+                        <input id="subjectID" placeholder="多轮对话上下文标识码" disabled="disabled">
+                    </label>
+                    <label>最大token数(默认200)
+                        <input id="maxTokens" placeholder="最大-输入=输出(含思考)" value="10240" required>
+                    </label>
+                    <label>系统提示词
+                        <textarea id="systemPrompt" placeholder="输入系统提示词..."
+                                  rows="2">你是不动产登记领域的业务专家</textarea>
+                    </label>
+                    <div class="flex">
+                        <label><input type="checkbox" id="streamCheckbox" checked>流式响应</label>
+                        <label><input type="checkbox" id="enableThinkingCheckbox" checked>深度思考</label>
+                    </div>
+                    <div class="slider">
+                        <label>采样温度:
+                            <span class="slider-value" id="temperatureValue">0.5</span>
+                            <input type="range" min="1" max="20" value="5" id="temperatureSlider">
+                            <span class="slider-description">生成的随机性 (0.1-2.0)</span>
+                        </label>
+                        <label>采样概率:
+                            <span class="slider-value" id="top_pValue">0.5</span>
+                            <input type="range" min="1" max="10" value="5" id="top_pSlider">
+                            <span class="slider-description">生成的多样性 (0.1-1.0)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p><strong>说明：</strong></p>
+                    <p>增加了「深度思考」仅 Qwen3 支持关闭</p>
+                    <p>温度:控制生成文本的随机性 (0.1-2.0)</p>
+                    <p>概率:控制生成文本的多样性 (0.1-1.0)</p>
+                </div>
+            </div>
+        </div>
+        <div class="lcr-center">
+            <!-- 中间输出面板 -->
+            <div class="panel">
+                <h3 class="title">生成结果</h3>
+                <div class="no-padding full panel-scroll markdown-container">
+                    <div id="responseElement" class="scroll full container-response">
+                    </div>
+                </div>
+                <div class="group">
+                    <label>
+                        <textarea id="userPrompt" placeholder="输入你的问题..."
+                                  rows="4">你知道什么知识，会提供什么帮助！请简明扼要的回答。</textarea>
+                    </label>
+                </div>
+                <div class="group flex">
+                    <button id="submitBtn" class="submit">发送请求</button>
+                    <button id="abortBtn" class="cancel" disabled>终止请求</button>
+                </div>
+            </div>
+        </div>
+        <div class="lcr-right">
+            <div class="panel">
+                <div class="title">
+                    <h3>原始响应</h3>
+                </div>
+                <div class="no-padding full markdown-container panel-scroll">
+                    <div id="responseSource" class=" scroll full container-response-chunk">接口输出将显示在这里
+                    </div>
+                </div>
+                <div class="footer flex">
+                    <label><input type="checkbox" id="sourceScrollCheckbox" checked>自动滚动</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hmf-footer">
+        <h5>&copy; 2025 数道智融科技 保留所有权利 | Powered by Shudao AI</h5>
+    </div>
+</div>
+
+<script language="JavaScript">
+    // 配置 marked (MarkDown格式处理）
+    marked.setOptions({
+        highlight: function (code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, {language}).value;
+        },
+        langPrefix: 'hljs language-',
+        breaks: true,
+        gfm: true,
+        pedantic: false,
+        sanitize: false,
+        smartypants: false,
+        xhtml: false
+    });
+</script>
+<script language="JavaScript">
+    document.addEventListener('DOMContentLoaded', () => {
+        // DOM 元素引用
+        const elements = {
+            // 模型设置
+            contentCheckbox: document.getElementById('contentCheckbox'),
+            subjectID: document.getElementById('subjectID'),
+            models_list: document.getElementById('models_list'),
+            systemPrompt: document.getElementById('systemPrompt'),
+            maxTokens: document.getElementById('maxTokens'),
+            streamCheckbox: document.getElementById('streamCheckbox'),
+            enableThinkingCheckbox: document.getElementById('enableThinkingCheckbox'),
+            temperatureSlider: document.getElementById('temperatureSlider'),
+            temperatureValue: document.getElementById('temperatureValue'),
+            top_pSlider: document.getElementById('top_pSlider'),
+            top_PValue: document.getElementById('top_pValue'),
+            // 生成结果
+            responseElement: document.getElementById('responseElement'),
+            userPrompt: document.getElementById('userPrompt'),
+            submitBtn: document.getElementById('submitBtn'),
+            abortBtn: document.getElementById('abortBtn'),
+            // 原始输出
+            responseSource: document.getElementById('responseSource'),
+            sourceScrollCheckbox: document.getElementById('sourceScrollCheckbox'),
+        };
+        // 应用状态
+        const appState = {
+            isProcessing: false,
+        };
+        // 配置滑块组
+        const sliders = SliderManager.initSliders([{
+            name: "temperature",
+            slider: elements.temperatureSlider, valueDisplay: elements.temperatureValue,
+            // divisor: 10, decimalPlaces: 1
+        }, {
+            name: "top_p",
+            slider: elements.top_pSlider, valueDisplay: elements.top_PValue,
+            // divisor: 10, decimalPlaces: 1
+        }]);
+        // 初始化 ShuDaodao 组件
+        const shudaoAIComponent = new ShudaoAIComponent({
+            responseElement: elements.responseElement,
+            onProgress: onProgress,
+            onParseMarkdown: onParseMarkdown
+        })
+
+        // 处理MackDown格式
+        function onParseMarkdown(text) {
+            // scripts/markdown.js 的处理mackdown的方法
+            return marked.parse(text)
+        }
+
+        // 初始化 模型列表
+        shudaoAIComponent.load_models(elements.models_list);
+
+        // 初始化 按钮事件
+        function initEventListeners() {
+            elements.abortBtn.addEventListener('click', abortRequest);
+            elements.submitBtn.addEventListener('click', submitRequest);
+            elements.contentCheckbox.addEventListener('change', () => {
+                if (elements.contentCheckbox.checked === false)
+                    elements.subjectID.value = "";
+            })
+        }
+
+        // 终止请求
+        function abortRequest() {
+            if (appState.isProcessing) {
+                shudaoAIComponent.abort();
+                resetUIForRequest();
+            }
+        }
+
+        // 提交请求
+        async function submitRequest(e) {
+            e.preventDefault();
+            const userPrompt = elements.userPrompt.value.trim();
+            if (!userPrompt) {
+                shudaoAIComponent.showMessage(elements.userPrompt.placeholder);
+                return;
+            }
+
+            const requestData = {
+                // 持久化ID，可任意编辑
+                id: elements.subjectID.value.trim(),
+                stream: elements.streamCheckbox.checked,
+                model: elements.models_list.options[elements.models_list.selectedIndex].value,
+                user: 'SmartShudao',
+                messages: [
+                    {role: 'system', content: elements.systemPrompt.value.trim()},
+                    {role: 'user', content: elements.userPrompt.value.trim()}
+                ],
+                temperature: sliders["temperature"].value,
+                top_p: sliders["top_p"].value,
+                enable_thinking: elements.enableThinkingCheckbox.checked,
+                max_tokens: Number(elements.maxTokens.value.trim()) || 200
+            };
+            try {
+                prepareUIForRequest();  // 设置UI状态
+                shudaoAIComponent.add_question(userPrompt);
+                await shudaoAIComponent.generate(requestData);
+            } catch (error) {
+                // debugger;
+                shudaoAIComponent.showError(error);
+                elements.responseSource.textContent += JSON.stringify(error, null, 2);
+            } finally {
+                resetUIForRequest();
+            }
+        }
+
+        function onProgress(chunk) {
+            // 处理多轮对话
+            if (elements.contentCheckbox.checked && elements.subjectID.value === "" && chunk.id)
+                elements.subjectID.value = chunk.id
+            // 原始输出
+            elements.responseSource.textContent += JSON.stringify(chunk, null, 2) + "\n";
+            // 自动滚动原始输出【简单处理，强制滚动】
+            if (elements.sourceScrollCheckbox.checked)
+                elements.responseSource.scrollTop = elements.responseSource.scrollHeight;
+        }
+
+
+        // 提交前的初始化
+        function prepareUIForRequest() {
+            elements.responseSource.textContent = "";
+            elements.submitBtn.disabled = true;
+            elements.abortBtn.disabled = false;
+            appState.isProcessing = true;
+            if (elements.contentCheckbox.checked === false)
+                elements.responseElement.innerHTML = "";
+        }
+
+        // 重置UI到初始状态
+        function resetUIForRequest() {
+            elements.submitBtn.disabled = false;
+            elements.abortBtn.disabled = true;
+            appState.isProcessing = false;
+        }
+
+        // 初始化事件监听
+        initEventListeners();
+    });
+</script>
+</body>
+</html>

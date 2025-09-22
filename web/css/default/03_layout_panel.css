@@ -1,0 +1,84 @@
+/* 布局: 面板式 */
+.shudao-ai .panel {
+    width: 100%; /* 宽度100% */
+    display: flex; /* 使用弹性盒子 */
+    flex-direction: column; /* 垂直排列 */
+    background-color: var(--shudao-ai-foreground-color); /* 前景色 */
+    box-shadow: var(--shudao-ai-shadow-panel); /* 阴影效果 */
+    border-radius: var(--shudao-ai-border-radius-8); /* 圆角8px */
+    /*line-height: 1.5rem;*/
+}
+
+/*.shudao-ai .panel + .panel {*/
+/*    margin-left: var(--shudao-ai-gap-15);*/
+/*}*/
+
+/* 滚动布局 */
+.shudao-ai .panel-scroll {
+    overflow: hidden; /* 隐藏溢出内容 */
+}
+
+.shudao-ai .panel-scroll .scroll {
+    overflow: auto; /* 自动滚动 */
+}
+
+/* 布局: 面板式 - 标题 */
+.shudao-ai .panel > .title {
+    position: relative; /* 相对定位 */
+    padding: var(--shudao-ai-padding-panel); /* 内边距 */
+    border-bottom: 1px solid var(--shudao-ai-border-color); /* 底部边框 */
+}
+
+/* 布局: 面板式 - 行 - 通用纵向布局 */
+.shudao-ai .panel > .group {
+    position: relative; /* 相对定位 */
+    padding: var(--shudao-ai-padding-panel); /* 内边距 */
+}
+
+/* 布局: 面板式 - 行 - 页脚 */
+.shudao-ai .panel > .footer {
+    position: relative; /* 相对定位 */
+    padding: var(--shudao-ai-padding-panel); /* 内边距 */
+    font-size: 0.85rem; /* 字体大小0.85rem */
+    color: var(--shudao-ai-color-desc); /* 底部文字颜色 */
+    line-height: 1.2rem; /* 行高1.2rem */
+}
+
+/* 布局: 面板式 - 行 - 横向弹性布局 */
+.shudao-ai .panel .flex {
+    display: flex; /* 使用弹性盒子 */
+    align-items: center; /* 垂直居中 */
+    gap: var(--shudao-ai-gap-10); /* 子元素间距 */
+}
+
+/* 布局: 面板式 - 行 - 网格布局 */
+.shudao-ai .panel .grid {
+    display: grid; /* 使用网格布局 */
+    gap: var(--shudao-ai-gap-10); /* 子元素间距 */
+}
+
+/* 修正: 面板式 - 行 - 横向弹性布局 内部的element样式 */
+.shudao-ai .panel .flex label {
+    display: inline-block; /* 行内块元素 */
+    vertical-align: middle; /* 垂直对齐 */
+}
+
+.shudao-ai .panel .flex input[type="checkbox"] {
+    width: 1.2rem; /* 宽度 */
+    height: 1.2rem; /* 高度 */
+    cursor: pointer; /* 鼠标指针样式 */
+    vertical-align: middle; /* 垂直对齐 */
+    margin: 0 0.25rem 0.1rem 0.25rem; /* 外边距 */
+}
+
+.shudao-ai .panel .slider {
+
+}
+
+.shudao-ai .panel .slider label {
+    line-height: 1rem;
+}
+
+/*.shudao-ai .panel .slider label input {*/
+/*    grid-template-columns: 2fr;*/
+/*}*/

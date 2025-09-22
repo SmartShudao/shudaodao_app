@@ -1,0 +1,44 @@
+.shudao-ai .container-hmf div.hmf-header {
+    background-color: var(--shudao-ai-foreground-color);
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--shudao-ai-border-color);
+}
+
+.shudao-ai .container-hmf div.hmf-footer {
+    border-top: 1px solid var(--shudao-ai-border-color);
+}
+
+/* 布局: 卡片式 grid */
+.container-card {
+    display: grid; /* 使用网格布局 */
+    grid-template-columns: 1fr 1fr 1fr; /* 自动填充列，最小宽度200px */
+    padding: 10px 10%;
+    gap: 20px;
+}
+
+.container-card > .card-link {
+    display: block; /* 块级显示 */
+    padding: 20px; /* 内边距20px */
+    border-radius: var(--shudao-ai-border-radius-8); /* 圆角8px */
+    background-color: white; /* 背景白色 */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: all 0.3s ease; /* 过渡效果 */
+    color: #333; /* 文字颜色 */
+    text-decoration: none; /* 无下划线 */
+    text-align: left; /* 文本左对齐 */
+}
+
+.container-card > .card-link:hover {
+    /*transform: translateY(-3px); !* 鼠标悬停时向上移动3px *!*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果增强 */
+}
+
+.card-link h3 {
+    color: rgba(52, 152, 219, 1);
+    font-weight: 700;
+}
+
+.card-link p {
+    padding: 10px 0 0 0;
+    font-weight: 500;
+}

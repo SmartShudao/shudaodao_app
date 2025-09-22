@@ -1,0 +1,100 @@
+/* 文件上传组件基础样式 */
+.shudao-ai .panel-upload {
+    padding-top: 0 !important;
+    margin-top: 1rem;
+}
+
+.shudao-ai .panel-upload .dropzone {
+    border: 1px dashed #ccc;
+    text-align: center;
+    gap: 10px;
+    display: grid;
+    border-radius: var(--shudao-ai-border-radius-5);
+    font-size: 0.9rem;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 10px; /*对齐 gap:10px */
+}
+
+.shudao-ai .panel-upload .dropzone.active {
+    border-color: #4CAF50;
+}
+
+.shudao-ai .panel-upload button {
+    min-height: 2rem;
+    padding: 0 0.75rem;
+    flex: unset;
+}
+
+.shudao-ai .panel-upload .hint {
+    grid-column: 1 /4;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shudao-ai .panel-upload .list {
+    max-height: 7rem;
+    overflow-y: auto;
+    margin: 0 0.5rem;
+    grid-column: 1 /5;
+}
+
+.shudao-ai .panel-upload .list .item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px dashed #ccc;
+    gap: 5px;
+}
+
+
+.shudao-ai .panel-upload .list .item span:first-child {
+    width: 100%;
+    text-align: left;
+}
+
+.shudao-ai .panel-upload .toolbar {
+    display: flex;
+    gap: 10px;
+    padding-right: 10px;
+    flex-direction: column;
+}
+
+.shudao-ai .panel-upload table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shudao-ai .panel-upload table thead th {
+    position: sticky;
+    top: 0;
+    background-color: var(--shudao-ai-foreground-color);
+}
+
+.shudao-ai .panel-upload table th,
+.shudao-ai .panel-upload table td {
+    padding: 0.25rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.shudao-ai .panel-upload table td {
+    text-align: right;
+}
+
+/*.shudao-ai .panel-upload table th:last-child,*/
+/*.shudao-ai .panel-upload table td:last-child {*/
+/*    padding-right: 10px;*/
+/*}*/
+
+.shudao-ai .panel-upload table th:nth-child(2),
+.shudao-ai .panel-upload table td:nth-child(2) {
+    width: 100%;
+    white-space: wrap;
+    text-align: left;
+}
+
+.shudao-ai .panel-upload table tr:hover {
+    background-color: #f5f5f5;
+}

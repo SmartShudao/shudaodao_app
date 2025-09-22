@@ -1,0 +1,165 @@
+/* -*- coding:utf-8 -*-
+ @License  ：(C)Copyright 2025, 数道智融科技
+ @Author   ：李锋
+ @Software ：PyCharm
+ @Date     ：2025/7/29
+ @Desc     ：
+*/
+
+/* 更简单的现代重置方案 */
+:root {
+    /* 字体 */
+    --shudao-ai-font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --shudao-ai-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --shudao-ai-font-color: #1e293b;
+    --shudao-ai-font-size-base: 16px;
+    /* 主色 */
+    --shudao-ai-primary-color: #0ea5e9;
+    --shudao-ai-primary-hover: #0284c7;
+    /* 背景色、前景色 */
+    --shudao-ai-background-color: #f8fafc;
+    --shudao-ai-foreground-color: #ffffff;
+    --shudao-ai-button-face: #e1e4e8;
+    --shudao-ai-button-hover: #d6d6d6;
+    /*--shudao-ai-foreground-button: #595959;*/
+
+    /* 表单相关 */
+    --shudao-ai-color-label: #334155;
+    --shudao-ai-color-input: #1e293b;
+    --shudao-ai-color-button: #595959;
+    --shudao-ai-color-desc: #64748b;
+    --shudao-ai-color-disabled: #eceff4;
+    /* 边框相关 */
+    --shudao-ai-border-color: #e2e8f0;
+    --shudao-ai-border-hover: #0ea5e9;
+    --shudao-ai-border-radius-8: 8px;
+    --shudao-ai-border-radius-5: 5px;
+    --shudao-ai-shadow-panel: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shudao-ai-shadow-primary: 0 0 0 1px rgba(14, 165, 233, 0.1);
+    --shudao-ai-shadow-button: 0 0 0 1px rgb(236, 239, 244);
+    --shudao-ai-padding-panel: 0.5rem 1rem;
+    /* 提示消息、错误消息 */
+    --shudao-ai-info-color: #f0f8ff;
+    --shudao-ai-error-color: #ef4444;
+    --shudao-ai-error-hover: #d13232;
+    /* 高亮 */
+    --shudao-ai-light-color: #94a3b8;
+    --shudao-ai-gray-color: gray;
+    /* 布局相关 */
+    --shudao-ai-footer-color: #64748b;
+    --shudao-ai-gap-20: 20px;
+    --shudao-ai-gap-15: 15px;
+    --shudao-ai-gap-10: 10px;
+    --shudao-ai-gap-5: 5px;
+    --shudao-ai-transition: all 0.3s ease;
+}
+
+/* 数道智融 AI类 样式 */
+.shudao-ai {
+    font-family: var(--shudao-ai-font-system), serif; /* 使用系统字体或serif */
+    font-size: var(--shudao-ai-font-size-base); /* 基准大小 */
+    line-height: 2rem; /* 行高为固定的2rem */
+    font-weight: 500; /* 字体粗细 */
+    color: var(--shudao-ai-font-color); /* 默认文字颜色 */
+    text-rendering: optimizeLegibility; /* 优化可读性 */
+    -webkit-font-smoothing: antialiased; /* Mac字体平滑 */
+    -moz-osx-font-smoothing: grayscale; /* Firefox字体平滑 */
+}
+
+.shudao-ai *,
+.shudao-ai *::before,
+.shudao-ai *::after {
+    margin: 0; /* 移除所有元素的默认外边距 */
+    padding: 0; /* 移除所有元素的默认内边距 */
+    box-sizing: border-box; /* 设置盒模型为border-box */
+}
+
+.shudao-ai .no-padding {
+    padding: 0 !important; /* 内边距 */
+}
+
+.shudao-ai .no-wrap {
+    white-space: nowrap;
+}
+
+.shudao-ai .hidden {
+    display: none !important;
+}
+
+.shudao-ai .full {
+    width: 100%; /* 宽度100% */
+    height: 100%; /* 高度100% */
+}
+
+.shudao-ai .group {
+    position: relative;
+}
+
+.shudao-ai .right {
+    text-align: right;
+}
+
+.shudao-ai .center {
+    text-align: center;
+}
+
+.shudao-ai .padding-gap-10 {
+    padding: var(--shudao-ai-gap-10);
+}
+
+
+/* 布局: grid 布局 */
+.shudao-ai .grid-gap {
+    display: grid; /* 使用网格布局 */
+    gap: var(--shudao-ai-gap-10); /* 子元素间距 */
+}
+
+/* grid 列 */
+.shudao-ai .columns-11 {
+    grid-template-columns: 1fr 1fr !important; /* 两列等宽 */
+}
+
+.shudao-ai .columns-1a {
+    grid-template-columns: 1fr auto !important; /* 1列+自动 */
+}
+
+.shudao-ai .columns-a1 {
+    grid-template-columns: auto 1fr !important; /* 1列+自动 */
+}
+
+.shudao-ai .columns-111 {
+    grid-template-columns: repeat(3, 1fr) !important; /* 三列等宽 */
+}
+
+.shudao-ai .columns-121 {
+    grid-template-columns: 1fr 2fr 1fr !important; /* 第一列和第三列等宽，第二列两倍宽度 */
+}
+
+.shudao-ai .columns-12 {
+    grid-template-columns: 1fr 2fr !important; /* 第二列两倍宽度 */
+}
+
+.shudao-ai .rows-afa {
+    grid-template-rows: auto 1fr auto !important; /* 自动上下 中间自适应 */
+}
+
+.shudao-ai .flex-gap {
+    display: flex; /* 使用网格布局 */
+    gap: var(--shudao-ai-gap-10); /* 子元素间距 */
+}
+
+.shudao-ai .flex-1 {
+    flex: 1;
+}
+
+.shudao-ai .flex-2 {
+    flex: 2;
+}
+
+.shudao-ai .flex-3 {
+    flex: 3;
+}
+
+.shudao-ai .flex-4 {
+    flex: 4;
+}
