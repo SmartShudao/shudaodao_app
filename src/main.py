@@ -5,10 +5,10 @@
 # @Software ：PyCharm
 # @Date     ：2025/8/18 下午8:14
 # @Desc     ：
+
 from starlette.staticfiles import StaticFiles
 
 from middleware import register_middlewares
-# from router import register_routers
 from shudaodao_core import BaseApplication, CoreUtil
 
 
