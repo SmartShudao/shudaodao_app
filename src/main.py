@@ -20,9 +20,9 @@ class Application(BaseApplication):
     def application_onload(self):
         # 注册中间件
         register_middlewares(self.app)
-        # 挂载静态文件
-        self.app.mount("/", StaticFiles(directory=str(CoreUtil.get_web_path()), html=True), name="static")
 
 
 # 创建应用实例
 webapp = Application().app
+# 挂载静态文件
+webapp.mount("/", StaticFiles(directory=str(CoreUtil.get_web_path()), html=True), name="static")

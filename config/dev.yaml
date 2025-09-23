@@ -9,6 +9,7 @@ SmartShudao:
     ]
   auth: {
     token_jwt_expire_minutes: 180,
+    rebuild_permission_rule: true, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
   }
   routers:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名

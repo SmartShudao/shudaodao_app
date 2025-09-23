@@ -18,5 +18,11 @@ if __name__ == "__main__":
         workers=1 if AppConfig.webapp.reload else AppConfig.webapp.workers,  # reload = true 设置 workers = 1
         reload=AppConfig.webapp.reload,  # reload = true 一般开发阶段使用
         # reload = false 移除 监视目录
-        reload_dirs=["../config", "../src", "../packages"] if AppConfig.webapp.reload else None
+        reload_dirs=[
+            "../config",        # 配置目录
+            "../src",           # 源代码
+            "../packages",      # 包 - 开发位置
+            "../packages_lib",  # 包 - 编译位置
+            "../packages_core"  # 包 - 核心框架
+        ] if AppConfig.webapp.reload else None
     )
