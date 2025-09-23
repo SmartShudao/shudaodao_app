@@ -15,7 +15,7 @@ SmartShudao:
     - { name: "shudaodao_core", "prefix": "" }
     - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
     - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
-    - { name: "shudaodao_generate.shudao_admin", "prefix": "/api" }
+    - { name: "shudaodao_generate.shudao_acm", "prefix": "/api" }
   # 模型
   models:
     # 生成模型
