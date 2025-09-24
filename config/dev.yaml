@@ -15,7 +15,7 @@ SmartShudao:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
     - { name: "shudaodao_core", "prefix": "" }
     - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
-    - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
+#    - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
     - { name: "shudaodao_generate", "prefix": "/api" }
   # 模型
   models:
