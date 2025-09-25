@@ -11,7 +11,7 @@
 {% endfor %}
 
 
-class {{ class_name }}Base(SQLModel):
+class {{ class_name }}Base(SQLModel, registry={{ schema_name }}_registry):
     """ 模型共用字段 """
     {% for column in base_columns %}
     {{ column|format_column_base }}
