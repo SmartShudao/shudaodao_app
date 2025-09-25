@@ -25,4 +25,4 @@ class Application(BaseApplication):
 # 创建应用实例
 webapp = Application().app
 # 挂载静态文件
-webapp.mount("/", StaticFiles(directory=str(CoreUtil.get_web_path()), html=True), name="static")
+webapp.mount("/", StaticFiles(directory=str(CoreUtil.get_admin_path()), html=True), name="static")

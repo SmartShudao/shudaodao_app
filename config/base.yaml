@@ -41,7 +41,7 @@ SmartShudao:
       # 第一个节点 name:"Default" 不建议修改
       - { name: "Default", path: "storage/default" }
       # 上传目录
-      - { name: "Upload", path: "web/uploads/" }
+      - { name: "Upload", path: "admin/uploads/" }
       # 对话上下文
       - { name: "Context", path: "storage/cache/context" }
       - { name: "Context_OpenAI", path: "storage/cache/context_openai" }
