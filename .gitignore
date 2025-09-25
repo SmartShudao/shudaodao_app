@@ -212,4 +212,4 @@ test/
 packages_lib/
 packages_core/
 
-
+/admin/uploads/
