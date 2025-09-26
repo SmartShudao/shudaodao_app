@@ -5,7 +5,7 @@
 
 ### shudaodao 版本更新
 
-  > pypi 上 版本 v0.1.26
+  > pypi 上 版本 v0.1.27
 
   如果无法获取最新，请注释 shudaodao_app 工程 pyproject.toml 中
 ```toml
