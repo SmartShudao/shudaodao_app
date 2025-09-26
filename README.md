@@ -2,6 +2,20 @@
 # 版本更新
 
 ## v0.1.2
+
+### shudaodao 版本更新
+
+  > pypi 上 版本 v0.1.26
+
+  如果无法获取最新，请注释 shudaodao_app 工程 pyproject.toml 中
+```toml
+[[tool.uv.index]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+default = true
+```
+
+
+
 ### 开发环境变化
   1、增加组件 "pyjwt>=2.10.1", 用户产品使用授权
 
