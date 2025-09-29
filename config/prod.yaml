@@ -4,6 +4,9 @@ SmartShudao:
   storage:
     # 数据库存储
     database: [
+      # 数据库 Auth   默认定义在 base.yaml
+      # 数据库 Admin  默认定义在 base.yaml
+      # 数据库 Enum   默认定义在 base.yaml
       # 安全相关 请在 secrets/prod.yaml 中配置
     ]
   # 模型

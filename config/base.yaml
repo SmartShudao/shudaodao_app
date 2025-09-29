@@ -12,7 +12,7 @@ SmartShudao:
   auth: {
     token_jwt_secret_key: "",  # token 的key
     token_jwt_expire_minutes: 60,
-    rebuild_permission_rule: false, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
+    rebuild_auth_rule: false, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
     default_admin_roles: [ "admin" ], # 添加的默认角色
     default_admin_users: [ "admin","lf_shao" ]
   }
@@ -26,12 +26,33 @@ SmartShudao:
   generate_snowflake: { instance_id: 1 }
   # 存储
   storage:
+    # 数据库存储
+    database:
+      - {
+        name: "Admin",  enabled: true,
+        dialect: "postgresql", driver: "asyncpg",
+        url: "postgres:postgres@localhost:5432/postgres",
+        connect_args: { },
+        echo: false
+      }
+      - { name: "Auth",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
+          url: "database/shudaodao_auth.db",
+          connect_args: { "check_same_thread": False },  echo: false
+      }
+      #      - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
+      #          url: "database/shudaodao_auth.db", # 和 Auth 共用，可单独分离
+      #          connect_args: { "check_same_thread": False },  echo: false
+      #      }
+      - { name: "Enum",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
+          url: "database/shudaodao_auth.db", # shudaodao_enum
+          connect_args: { "check_same_thread": False },  echo: false
+      }
     # redis 存储
     redis:
       # 第一个节点 name:"Default" 不建议修改
       - { name: "Default", host: "localhost", port: 6379, db: 0 ,kwargs: { } }
-      # Core 是核心框架使用的 redis 库，包含系统默认的各种用途
-      - { name: "Core", host: "localhost", port: 6379, db: 0 ,kwargs: { } }
+      # Auth 是核心框架使用的 redis 库，包含系统默认的各种用途
+      - { name: "Auth", host: "localhost", port: 6379, db: 0 ,kwargs: { } }
       # Context 是模型上下文的 Redis 库
       - { name: "Context", host: "localhost", port: 6379, db: 0 ,kwargs: { } }
       # Context 是 OpenAI 标准接口的上下文 Redis 库
@@ -47,11 +68,6 @@ SmartShudao:
       - { name: "Context_OpenAI", path: "storage/cache/context_openai" }
       # 向量库
       - { name: "Vector", path: "storage/vector/" }
-    # 数据库存储
-    database: [
-      # 安全相关 请在 secrets/dev、prod.yaml 中配置
-    ]
-
   # 模型
   models:
     # 上下文持久化
@@ -66,8 +82,3 @@ SmartShudao:
     embedding_models: [ ]
     # 重排序模型
     reranker_models: [ ]
-
-
-
-
-

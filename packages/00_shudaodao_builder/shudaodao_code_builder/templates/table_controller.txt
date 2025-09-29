@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# @License  ：(C)Copyright 2025, 数道智融科技
+# @Author   ：Shudaodao Auto Generator
+# @Software ：PyCharm
+# @Date     ：{{ generated_date }}
+# @Desc     ：controller classes for {{ schema_name }}{{ table_or_view_name }}
+
+from shudaodao_core import AsyncSession, AuthRouter, Depends
+from shudaodao_core import DataService, QueryRequest, ResponseUtil
+from .. import get_schema_name, get_engine_name
+
+from ..entity_table.{{ file_name }} import (
+    {{ class_name }}, {{ class_name }}Response,
+    {{ class_name }}Create, {{ class_name }}Update
+)
+
+{{ class_name }}_Router = AuthRouter(
+    prefix=f"/v1/{get_schema_name()}/{{ file_name }}",
+    tags=[f"{get_schema_name()}.table"],
+    db_config_name=f"{get_engine_name()}",  # 配置文件中的数据库连接名称
+    default_role=f"{get_schema_name()}",  # 系统默认角色具有此权限
+    auth_obj=f"{get_schema_name()}.{{ table_or_view_name }}"  # 验证权限用的对象名 动作在具体方法中
+)
+
+
+@{{ class_name }}_Router.post(
+{% if comment %}
+    path="/query", auth_act="query", summary=f"检索 {{ comment }}")
+{% else %}
+    path="/query", auth_act="query", summary=f"检索 {get_schema_name()} - {{ table_or_view_name }}")
+{% endif %}
+async def {{ file_name }}_query(
+        *, query: QueryRequest, db: AsyncSession = Depends({{ class_name }}_Router.get_async_session)
+):
+    query_model = await DataService.query(
+        db, query, model_class={{ class_name }},
+        response_class={{ class_name }}Response
+    )
+    return ResponseUtil.success(data=query_model, message="查询成功")
+
+
+@{{ class_name }}_Router.post(
+{% if comment %}
+    path="", auth_act="edit", summary=f"创建 {{ comment }}")
+{% else %}
+    path="", auth_act="edit", summary=f"创建 {get_schema_name()} - {{ table_or_view_name }}")
+{% endif %}
+async def {{ file_name }}_create(
+        *, create_model: {{ class_name }}Create,
+        db: AsyncSession = Depends({{ class_name }}_Router.get_async_session)
+):
+    data_create = await DataService.create(
+        db, db_model_class={{ class_name }},
+        create_model=create_model,
+        response_class={{ class_name }}Response
+    )
+    return ResponseUtil.success(message="创建成功", data=data_create)
+
+
+@{{ class_name }}_Router.get(
+{% if comment %}
+    path="/{primary_id}", auth_act="read", summary=f"获取 {{ comment }}")
+{% else %}
+    path="/{primary_id}", auth_act="read", summary=f"获取 {get_schema_name()} - {{ table_or_view_name }}")
+{% endif %}
+async def {{ file_name }}_read(
+        *, primary_id: int,
+        db: AsyncSession = Depends({{ class_name }}_Router.get_async_session)
+):
+    data_read = await DataService.read(
+        db, primary_id, model_class={{ class_name }},
+        response_class={{ class_name }}Response
+    )
+    return ResponseUtil.success(message="获取成功", data=data_read)
+
+
+@{{ class_name }}_Router.patch(
+{% if comment %}
+    path="/{primary_id}", auth_act="edit", summary=f"更新 {{ comment }}")
+{% else %}
+    path="/{primary_id}", auth_act="edit", summary=f"更新 {get_schema_name()} - {{ table_or_view_name }}")
+{% endif %}
+async def {{ file_name }}_update(
+        *, primary_id: int, update_model: {{ class_name }}Update,
+        db: AsyncSession = Depends({{ class_name }}_Router.get_async_session)
+):
+    data_update = await DataService.update(
+        db, primary_id, model_class={{ class_name }},
+        update_model=update_model,
+        response_class={{ class_name }}Response
+    )
+    return ResponseUtil.success(message="更新成功", data=data_update)
+
+
+@{{ class_name }}_Router.delete(
+{% if comment %}
+    path="/{primary_id}", auth_act="edit", summary=f"删除 {{ comment }}")
+{% else %}
+    path="/{primary_id}", auth_act="edit", summary=f"删除 {get_schema_name()} - {{ table_or_view_name }}")
+{% endif %}
+async def {{ file_name }}_delete(
+        *, primary_id: int,
+        db: AsyncSession = Depends({{ class_name }}_Router.get_async_session)
+):
+    await DataService.delete(db, primary_id, model_class={{ class_name }})
+    return ResponseUtil.success(message="删除成功")
