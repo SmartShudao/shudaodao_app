@@ -207,9 +207,8 @@ dmypy.json
 test/
 /storage/
 /web/uploads/
+/admin/uploads/
 /models/
 /config/environment.yaml
-packages_lib/
-packages_core/
 
-/admin/uploads/
+
