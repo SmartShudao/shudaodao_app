@@ -19,8 +19,7 @@ SmartShudao:
   # 路由配置
   routers:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
-    - { name: "shudaodao_core", "prefix": "" }
-    - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
+#    - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
 
   # ID 生成器（雪花算法） instance_id: 实例ID/机器ID ，多节点部署时修改
   generate_snowflake: { instance_id: 1 }
@@ -28,24 +27,13 @@ SmartShudao:
   storage:
     # 数据库存储
     database:
-      - {
-        name: "Admin",  enabled: true,
-        dialect: "postgresql", driver: "asyncpg",
-        url: "postgres:postgres@localhost:5432/postgres",
-        connect_args: { },
-        echo: false
-      }
-      - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
-          url: "database/shudaodao_admin.db", # shudaodao_admin
-          connect_args: { "check_same_thread": False },  echo: false
-      }
       - { name: "Auth",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
           url: "database/shudaodao_auth.db",
           connect_args: { "check_same_thread": False },  echo: false
       }
 
       - { name: "Enum",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
-          url: "database/shudaodao_auth.db", # 和 Auth 共用，可单独分离
+          url: "database/shudaodao_enum.db", # 和 Auth 共用，可单独分离
           connect_args: { "check_same_thread": False },  echo: false
       }
     # redis 存储

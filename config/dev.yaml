@@ -12,18 +12,17 @@ SmartShudao:
     ]
   auth: {
     token_jwt_expire_minutes: 180,
-    rebuild_permission_rule: true, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
+    rebuild_auth_rule: true, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
   }
   routers:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
-    - { name: "shudaodao_core", "prefix": "" }
-    #- { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
-    #- { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
-#    - { name: "shudaodao_generate", "prefix": "/api" }
-    #- { name: "shudaodao_generate.shudao_acm", "prefix": "/api" }
-    #- { name: "shudaodao_generate.shudao_admin", "prefix": "/api" }
-    #- { name: "shudaodao_generate.shudao_bpm", "prefix": "/api" }
-    #- { name: "shudaodao_generate.shudaodao_core", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_common", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
+    - { enabled: true, name: "shudaodao_generate", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_generate.shudao_acm", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_generate.shudao_admin", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_generate.shudao_bpm", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_generate.shudaodao_admin", "prefix": "/api" }
   # 模型
   models:
     # 生成模型

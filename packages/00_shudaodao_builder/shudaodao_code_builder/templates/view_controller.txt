@@ -4,7 +4,7 @@
 # @Author   ：Shudaodao Auto Generator
 # @Software ：PyCharm
 # @Date     ：{{ generated_date }}
-# @Desc     ：controller classes for {{ schema_name }}{{ table_or_view_name }}
+# @Desc     ：controller classes for {{ schema_name2 }}{{ table_or_view_name }}
 
 from shudaodao_core import AsyncSession, AuthRouter, Depends
 from shudaodao_core import DataService, QueryRequest, ResponseUtil

@@ -13,16 +13,17 @@ SmartShudao:
     token_jwt_secret_key: "",  # token 的key
     token_jwt_expire_minutes: 60,
     rebuild_auth_rule: true, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
-    default_admin_roles: [ "admin" ], # 添加的默认角色
-    default_admin_users: [ "admin","lf_shao" ]
+    default_admin_roles: [ "admin" ], # 添加的默认管理员 角色
+    default_admin_users: [ "admin" ]  # 添加的默认管理员 用户
   }
   # 路由配置
   routers:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
-    - { name: "shudaodao_core", "prefix": "/api" }
-    - { name: "shudaodao_common", "prefix": "/api" }
-    - { name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
-    - { name: "shudaodao_generate.shudao_acm", "prefix": "/api" , "tags": [ "访问控制系统" ] }
+    - { enabled: true, name: "shudaodao_core" }
+    - { enabled: true, name: "shudaodao_common", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
+    - { enabled: false, name: "shudaodao_generate", "prefix": "/api" }
+    - { enabled: false, name: "shudaodao_generate.shudao_acm", "prefix": "/api" , "tags": [ "访问控制系统" ] }
 
   # 雪花算法
   # instance_id 实例ID（机器ID），用于区分不同的生成器实例

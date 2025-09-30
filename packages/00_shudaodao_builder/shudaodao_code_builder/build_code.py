@@ -8,9 +8,6 @@ if __name__ == "__main__":
     #           生成器 配置
     # --------------------------------------------
     config = GeneratorConfig(
-        # 数据库 连接
-        db_url="postgresql+psycopg2://postgres:postgres@localhost:5432/postgres",
-
         # 如果数据库不支持 schema 时，设置default_schema
         # default_schema_name="shudaodao_aaa",
 
