@@ -35,16 +35,17 @@ SmartShudao:
         connect_args: { },
         echo: false
       }
+      - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
+          url: "database/shudaodao_admin.db", # shudaodao_admin
+          connect_args: { "check_same_thread": False },  echo: false
+      }
       - { name: "Auth",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
           url: "database/shudaodao_auth.db",
           connect_args: { "check_same_thread": False },  echo: false
       }
-      #      - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
-      #          url: "database/shudaodao_auth.db", # 和 Auth 共用，可单独分离
-      #          connect_args: { "check_same_thread": False },  echo: false
-      #      }
+
       - { name: "Enum",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
-          url: "database/shudaodao_auth.db", # shudaodao_enum
+          url: "database/shudaodao_auth.db", # 和 Auth 共用，可单独分离
           connect_args: { "check_same_thread": False },  echo: false
       }
     # redis 存储
