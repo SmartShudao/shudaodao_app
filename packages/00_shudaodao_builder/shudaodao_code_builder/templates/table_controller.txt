@@ -8,7 +8,7 @@
 
 from shudaodao_core import AsyncSession, AuthRouter, Depends
 from shudaodao_core import DataService, QueryRequest, ResponseUtil
-from .. import get_schema_name, get_engine_name
+from ... import get_schema_name, get_engine_name
 
 from ..entity_table.{{ file_name }} import (
     {{ class_name }}, {{ class_name }}Response,

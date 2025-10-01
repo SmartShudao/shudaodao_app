@@ -17,7 +17,7 @@ SmartShudao:
     default_admin_users: [ "admin","lf_shao" ]
   }
   # 路由配置
-  routers:
+  routers: []
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
 #    - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
 
@@ -31,7 +31,10 @@ SmartShudao:
           url: "database/shudaodao_auth.db",
           connect_args: { "check_same_thread": False },  echo: false
       }
-
+      - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
+            url: "database/shudaodao_admin.db",
+            connect_args: { "check_same_thread": False },  echo: false
+      }
       - { name: "Enum",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
           url: "database/shudaodao_enum.db", # 和 Auth 共用，可单独分离
           connect_args: { "check_same_thread": False },  echo: false

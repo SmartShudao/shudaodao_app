@@ -22,7 +22,7 @@ if __name__ == "__main__":
             "../config",        # 配置目录
             "../src",           # 源代码
             "../packages",      # 包 - 开发位置
-            "../packages_lib",  # 包 - 编译位置
-            "../packages_core"  # 包 - 核心框架
+            "../packages_lib",  # 包 - 二进制包
+            "../packages_core"  # 包 - 核心类库
         ] if AppConfig.webapp.reload else None
     )
