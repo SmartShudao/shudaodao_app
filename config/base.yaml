@@ -14,7 +14,7 @@ SmartShudao:
     token_jwt_expire_minutes: 60,
     rebuild_auth_rule: false, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
     default_admin_roles: [ "admin" ], # 添加的默认角色
-    default_admin_users: [ "admin","lf_shao" ]
+    default_admin_users: [ "admin" ]
   }
   # 路由配置
   routers: []

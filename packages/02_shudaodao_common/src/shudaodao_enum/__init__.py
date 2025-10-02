@@ -16,7 +16,7 @@ class RegistryModel(SQLModel, registry=shudaodao_enum_registry):
 
 # 用于 Controller
 def get_engine_name():
-    return RunningConfig.get_engine_name("Shudaodao_Enum", "shudaodao_enum")
+    return RunningConfig.get_engine_name("Enum", "shudaodao_enum")
 
 
 # noinspection DuplicatedCode
