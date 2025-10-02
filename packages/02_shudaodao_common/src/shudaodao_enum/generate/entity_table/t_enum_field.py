@@ -3,7 +3,7 @@
 # @License  ：(C)Copyright 2025, 数道智融科技
 # @Author   ：Shudaodao Auto Generator
 # @Software ：PyCharm
-# @Date     ：2025/10/01 23:27:19
+# @Date     ：2025/10/02 15:52:55
 # @Desc     ：SQLModel classes for shudaodao_enum.t_enum_field
 
 from datetime import datetime
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 class TEnumField(RegistryModel, table=True):
     """ 数据库对象模型 """
     __tablename__ = "t_enum_field"
-    __table_args__ = {"schema": f"{get_table_schema()}", "comment": "枚举字段表"}
+    __table_args__ = {"schema": get_table_schema(), "comment": "枚举字段表"}
 
     field_id: int = Field(default_factory=get_primary_id, primary_key=True, sa_type=BigInteger, description="字段内码")
     group_id: int = Field(
@@ -54,7 +54,8 @@ class TEnumFieldBase(SQLModel):
     description: Optional[str] = Field(default=None, description="描述")
     sort_order: Optional[int] = Field(default=None, description="字段索引")
     is_active: Optional[bool] = Field(default=None, description="是否启用")
-
+    create_at: Optional[datetime] = Field(default=None, description="创建日期")
+    update_at: Optional[datetime] = Field(default=None, description="创建日期")
 
 class TEnumFieldCreate(TEnumFieldBase):
     """ 前端创建模型 - 用于接口请求 """
@@ -76,3 +77,5 @@ class TEnumFieldResponse(BaseResponse):
     description: Optional[str] = Field(description="描述", default=None)
     sort_order: Optional[int] = Field(description="字段索引", default=None)
     is_active: Optional[bool] = Field(description="是否启用", default=None)
+    create_at: Optional[datetime] = Field(default=None, description="创建日期")
+    update_at: Optional[datetime] = Field(default=None, description="创建日期")

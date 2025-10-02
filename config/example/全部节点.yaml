@@ -27,8 +27,8 @@ SmartShudao:
 
   # 雪花算法
   # instance_id 实例ID（机器ID），用于区分不同的生成器实例
-  # epoch_time 自定义起始时间戳（毫秒), 默认:2025-01-01（1735689600000）
-  generate_snowflake: { instance_id: 1, epoch_time: 1735689600000 }
+  # epoch_time 自定义起始时间戳（毫秒), 默认:2025-10-08 14:30:00（1759991400000）
+  generate_snowflake: { instance_id: 1, epoch_time: 1759991400000 }
   # 存储
   storage:
     # redis 存储

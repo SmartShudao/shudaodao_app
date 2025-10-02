@@ -17,7 +17,7 @@ SmartShudao:
   routers:
     # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
     - { enabled: false, name: "shudaodao_admin", "prefix": "/api" }
-    - { enabled: false, name: "shudaodao_enum", "prefix": "/api" }
+    - { enabled: true, name: "shudaodao_enum", "prefix": "/api" }
     - { enabled: false, name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
     - { enabled: false, name: "shudaodao_generate", "prefix": "/api" }
   # 模型

@@ -3,7 +3,7 @@
 # @License  ：(C)Copyright 2025, 数道智融科技
 # @Author   ：Shudaodao Auto Generator
 # @Software ：PyCharm
-# @Date     ：2025/10/01 23:27:19
+# @Date     ：2025/10/02 15:52:55
 # @Desc     ：SQLModel classes for shudaodao_enum.t_enum_group
 
 from datetime import datetime
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class TEnumGroup(RegistryModel, table=True):
     """ 数据库对象模型 """
     __tablename__ = "t_enum_group"
-    __table_args__ = {"schema": f"{get_table_schema()}", "comment": "枚举分组表"}
+    __table_args__ = {"schema": get_table_schema(), "comment": "枚举分组表"}
 
     group_id: int = Field(default_factory=get_primary_id, primary_key=True, sa_type=BigInteger, description="分组内码")
     group_pid: int = Field(sa_type=BigInteger, description="所属分组")
@@ -44,7 +44,8 @@ class TEnumGroupBase(SQLModel):
     group_name: str = Field(max_length=100, description="分组名称")
     sort_order: Optional[int] = Field(default=None, description="排序权重")
     description: Optional[str] = Field(default=None, description="描述")
-
+    create_at: Optional[datetime] = Field(default=None, description="创建日期")
+    update_at: Optional[datetime] = Field(default=None, description="创建日期")
 
 class TEnumGroupCreate(TEnumGroupBase):
     """ 前端创建模型 - 用于接口请求 """
@@ -63,3 +64,5 @@ class TEnumGroupResponse(BaseResponse):
     group_name: str = Field(description="分组名称")
     sort_order: Optional[int] = Field(description="排序权重", default=None)
     description: Optional[str] = Field(description="描述", default=None)
+    create_at: Optional[datetime] = Field(default=None, description="创建日期")
+    update_at: Optional[datetime] = Field(default=None, description="创建日期")

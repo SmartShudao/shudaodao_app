@@ -43,7 +43,7 @@ async def dept_read(
         db: AsyncSession = Depends(Dept_Router.get_async_session)
 ):
     data_read = await DataService.read(
-        db, primary_id, model_class=Dept, response_model=DeptResponse
+        db, primary_id, model_class=Dept, response_class=DeptResponse
     )
     return ResponseUtil.success(message="获取成功", data=data_read)
 
@@ -54,7 +54,8 @@ async def dept_update(
         db: AsyncSession = Depends(Dept_Router.get_async_session)
 ):
     data_update = await DataService.update(
-        db, primary_id, model_class=Dept, update_model=model_update, response_model=DeptResponse
+        db, primary_id, model_class=Dept,
+        update_model=model_update, response_class=DeptResponse
     )
     return ResponseUtil.success(message="更新成功", data=data_update)
 

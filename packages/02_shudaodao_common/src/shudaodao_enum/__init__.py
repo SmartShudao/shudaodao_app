@@ -12,18 +12,18 @@ shudaodao_enum_registry = registry()
 
 class RegistryModel(SQLModel, registry=shudaodao_enum_registry):
     ...
-    
-    
-# 用于 Controller 
+
+
+# 用于 Controller
 def get_engine_name():
-    return RunningConfig.get_engine_name("Enum", "shudaodao_enum")
-    
+    return RunningConfig.get_engine_name("Shudaodao_Enum", "shudaodao_enum")
+
 
 # noinspection DuplicatedCode
 setattr(shudaodao_enum_registry, "engine_name", get_engine_name())
 
 
-# 用于 Controller 
+# 用于 Controller
 def get_schema_name():
     return RunningConfig.get_controller_schema("shudaodao_enum")
 
@@ -32,11 +32,10 @@ def get_schema_name():
 def get_table_schema():
     if DatabaseEngine().support_schema(name=get_engine_name()):
         return RunningConfig.get_sqlmodel_schema("shudaodao_enum")
-    return ""
-    
-    
+    return None
+
+
 # SQLModel 类: foreign_key= 用于这里 -> schema_name.t_table_name.field_id"
 def get_foreign_schema():
     table_schema = get_table_schema()
-    return table_schema + "." if table_schema else ""          
- 
+    return table_schema + "." if table_schema else ""

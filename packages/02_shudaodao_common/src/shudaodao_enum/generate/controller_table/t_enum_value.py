@@ -3,7 +3,7 @@
 # @License  ：(C)Copyright 2025, 数道智融科技
 # @Author   ：Shudaodao Auto Generator
 # @Software ：PyCharm
-# @Date     ：2025/10/01 23:27:19
+# @Date     ：2025/10/02 15:52:55
 # @Desc     ：controller classes for shudaodao_enum.t_enum_value
 
 from shudaodao_core import AsyncSession, AuthRouter, Depends

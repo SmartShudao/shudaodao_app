@@ -3,7 +3,7 @@
 # @License  ：(C)Copyright 2025, 数道智融科技
 # @Author   ：Shudaodao Auto Generator
 # @Software ：PyCharm
-# @Date     ：2025/10/01 23:27:19
+# @Date     ：2025/10/02 15:52:55
 # @Desc     ：SQLModel classes for shudaodao_enum.t_enum_value
 
 from datetime import datetime
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class TEnumValue(RegistryModel, table=True):
     """ 数据库对象模型 """
     __tablename__ = "t_enum_value"
-    __table_args__ = {"schema": f"{get_table_schema()}", "comment": "枚举值表"}
+    __table_args__ = {"schema": get_table_schema(), "comment": "枚举值表"}
 
     enum_id: int = Field(default_factory=get_primary_id, primary_key=True, sa_type=BigInteger, description="枚举内码")
     field_id: int = Field(

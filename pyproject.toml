@@ -21,7 +21,6 @@ dependencies = [
     "Jinja2>=3.1.6",
     "modelscope>=1.29.1",
     "numpy>=2.2.6",
-    "passlib>=1.7.4",
     "psycopg2-binary>=2.9.10",
     "pydantic>=2.11.9",
     "pydantic[email]>=2.11.7",
@@ -39,7 +38,8 @@ dependencies = [
     "torch>=2.7.0",
     "transformers>=4.56.0",
     "uvicorn>=0.35.0",
-    "python-jose[cryptography]>=3.5.0",
+    "bcrypt>=5.0.0",
+    "pyjwt[crypto]>=2.10.1",
 ]
 
 [[tool.uv.index]]
