@@ -14,11 +14,12 @@ from fastapi.middleware.gzip import GZipMiddleware
 def register_middlewares(app: FastAPI):
     """全局中间件处理"""
 
-    # 加载 压缩中间件 GZip Middleware  todo: gzip 压缩会导致 流式请求失败，先注释掉以后处理
-    # _add_middleware_gzip(app)
-
-    # 加载 跨域中间件 CORS Middleware
+    # 1. 加载 跨域中间件 CORS Middleware
     _add_middleware_cors(app)
+
+    # 2. 加载 压缩中间件 GZip Middleware
+    # todo: gzip 压缩会导致 流式请求失败，先注释掉以后处理
+    # _add_middleware_gzip(app)
 
 
 def _add_middleware_gzip(app: FastAPI):

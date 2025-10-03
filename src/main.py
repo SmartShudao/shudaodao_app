@@ -39,5 +39,3 @@ class Application(BaseApplication):
 
 # 创建应用实例
 webapp = Application().app
-
-

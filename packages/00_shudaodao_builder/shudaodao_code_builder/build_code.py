@@ -10,10 +10,8 @@ if __name__ == "__main__":
     config = GeneratorConfig(
         # 如果数据库不支持 schema 时，设置default_schema
         # default_schema_name="shudaodao_aaa",
-
         # 数据库连接名称    来自 xxx.yaml - storage - database - name: Core Common Generate 定义
         database_engine_name="Generate",
-
         # 输出目录: 默认: {project_root}/src/shudaodao_generate
         # output_path=None
     )

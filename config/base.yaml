@@ -14,13 +14,10 @@ SmartShudao:
     token_jwt_expire_minutes: 60,
     rebuild_auth_rule: false, # 系统启动时候，自动扫描 AuthService 类，提取 验证信息
     default_admin_roles: [ "admin" ], # 添加的默认角色
-    default_admin_users: [ "admin" ]
+    default_admin_users: [ "admin" ] # 添加的默认用户
   }
   # 路由配置
-  routers: []
-    # name 是包名「可以直接写子包，但是要写全」，注意: 不是目录名
-#    - { name: "shudaodao_common", "prefix": "/api", "tags": [ ] }
-
+  routers: [ ]
   # ID 生成器（雪花算法） instance_id: 实例ID/机器ID ，多节点部署时修改
   generate_snowflake: { instance_id: 1 }
   # 存储
@@ -29,11 +26,11 @@ SmartShudao:
     database:
       - { name: "Auth",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
           url: "database/shudaodao_auth.db",
-          connect_args: { "check_same_thread": False },  echo: false
+          connect_args: { "check_same_thread": False },  echo: true
       }
       - { name: "Admin",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
-            url: "database/shudaodao_admin.db",
-            connect_args: { "check_same_thread": False },  echo: false
+          url: "database/shudaodao_admin.db",
+          connect_args: { "check_same_thread": False },  echo: false
       }
       - { name: "Enum",  enabled: true,  dialect: "sqlite", driver: "aiosqlite",
           url: "database/shudaodao_enum.db", # 和 Auth 共用，可单独分离

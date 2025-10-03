@@ -19,7 +19,7 @@ SmartShudao:
     - { enabled: false, name: "shudaodao_admin", "prefix": "/api" }
     - { enabled: true, name: "shudaodao_enum", "prefix": "/api" }
     - { enabled: false, name: "shudaodao_omni", "prefix": "/api", "tags": [ "AI 应用" ] }
-    - { enabled: false, name: "shudaodao_generate", "prefix": "/api" }
+    - { enabled: true, name: "shudaodao_generate", "prefix": "/api" }
   # 模型
   models:
     # 生成模型
